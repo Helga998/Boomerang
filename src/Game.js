@@ -1,6 +1,7 @@
 // Импортируем всё необходимое.
 // Или можно не импортировать,
 // а передавать все нужные объекты прямо из run.js при инициализации new Game().
+const play = require("play-sound")();
 
 
 const Hero = require('./game-models/Hero');
@@ -48,6 +49,7 @@ class Game {
   }
 
   play() {
+    play.play("./src/sounds/mem.mp3");
     setInterval(() => {
 
       if (this.enemy.skin === '💀' ){
