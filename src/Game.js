@@ -3,6 +3,9 @@
 // а передавать все нужные объекты прямо из run.js при инициализации new Game().
 
 const sound = require('play-sound')();
+// const keypress = require('keypress');
+
+// keypress(process.stdin);
 const Hero = require("./game-models/Hero");
 const Enemy = require("./game-models/Enemy");
 const Boomerang = require("./game-models/Boomerang");
@@ -55,11 +58,16 @@ class Game {
         this.check();
         this.regenerateTrack();
         this.view.render(this.track);
+        // process.stdin.on('keypress', (ch, key) => {
+        //   if (key && key.name === 'space') {
+        //     console.log('Пользователь нажал на пробел');
+        //   }
+        // });
         this.boomerang.moveRight();
       }
       if (this.boomerang.position === 0) {
         sound.play('src/sounds/glitch-in-the-matrix.wav');
-        console.log("YOU WINNER! CONGRATULATION!!");
+        console.log("YOU ARE WINNER! CONGRATULATION!!");
         process.exit();
       }
     }, 100);
