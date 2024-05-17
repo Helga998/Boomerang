@@ -1,4 +1,6 @@
 // Враг.
+const play = require('play-sound')();
+
 
 class Enemy {
   constructor(args = {}) {
@@ -17,8 +19,10 @@ class Enemy {
   }
 
   die() {
-    this.skin = '💀';
-    console.log('Enemy is dead!');
+    this.skin = "💀";
+    play.play('./src/sounds/kill1.mp3');
+    console.log("Enemy is dead!");
+
   }
 }
 
