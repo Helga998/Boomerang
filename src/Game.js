@@ -1,11 +1,14 @@
 // Импортируем всё необходимое.
 // Или можно не импортировать,
 // а передавать все нужные объекты прямо из run.js при инициализации new Game().
+
 const sound = require('play-sound')();
 const Hero = require("./game-models/Hero");
 const Enemy = require("./game-models/Enemy");
 const Boomerang = require("./game-models/Boomerang");
 const View = require("./View");
+
+
 
 // Основной класс игры.
 // Тут будут все настройки, проверки, запуск.
