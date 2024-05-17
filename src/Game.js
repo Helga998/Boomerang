@@ -2,15 +2,12 @@
 // Или можно не импортировать,
 // а передавать все нужные объекты прямо из run.js при инициализации new Game().
 
-const sound = require('play-sound')();
-// const keypress = require('keypress');
 
-// keypress(process.stdin);
-const Hero = require("./game-models/Hero");
-const Enemy = require("./game-models/Enemy");
-const Boomerang = require("./game-models/Boomerang");
-const View = require("./View");
-
+const Hero = require('./game-models/Hero');
+const Enemy = require('./game-models/Enemy');
+const Boomerang = require('./game-models/Boomerang');
+const View = require('./View');
+const runInteractiveConsole = require('./keyboard');
 
 
 // Основной класс игры.
@@ -24,6 +21,7 @@ class Game {
     this.enemy = new Enemy({ position: this.trackLength - 1 });
     this.view = new View();
     this.track = [];
+    this.track1 = [];
     this.regenerateTrack();
   }
 
@@ -34,43 +32,44 @@ class Game {
     this.track[this.hero.position] = this.hero.skin;
     this.track[this.enemy.position] = this.enemy.skin;
     this.track[this.boomerang.position] = this.boomerang.skin;
+    this.track1 = (new Array(this.trackLength)).fill(' ');
+    // this.track1[this.hero.position] = this.hero.skin;
+    // this.track1[this.enemy.position] = this.enemy.skin;
+    // this.track1[this.boomerang.position] = this.boomerang.skin;
   }
 
   check() {
     if (this.hero.position === this.enemy.position) {
       this.hero.die();
     }
-    if (this.boomerang.position === this.enemy.position) {
+    if (this.boomerang.position === this.enemy.position - 1) {
       this.enemy.die();
     }
   }
 
   play() {
     setInterval(() => {
-      if (this.enemy.skin === "💀") {
-        this.check();
-        this.regenerateTrack();
-        this.view.render(this.track);
+
+      if (this.enemy.skin === '💀' ){
         this.boomerang.moveLeft();
-        sound.play('src/sounds/congratulations.wav');
-        console.log("Enemy is dead!");
-      } else {
         this.check();
         this.regenerateTrack();
-        this.view.render(this.track);
-        // process.stdin.on('keypress', (ch, key) => {
-        //   if (key && key.name === 'space') {
-        //     console.log('Пользователь нажал на пробел');
-        //   }
-        // });
-        this.boomerang.moveRight();
+        this.view.render(this.track,this.track1);
+        console.log('Enemy is dead!');
+        
+        } 
+        else {
+          this.boomerang.moveRight();
+          this.check();
+          this.regenerateTrack();
+          this.view.render(this.track,this.track1);
       }
-      if (this.boomerang.position === 0) {
-        sound.play('src/sounds/glitch-in-the-matrix.wav');
-        console.log("YOU ARE WINNER! CONGRATULATION!!");
-        process.exit();
-      }
-    }, 100);
+        if (this.boomerang.position  === this.hero.position +1) {
+          console.log('YOU WINNER! CONGRATULATION!!')
+          process.exit();
+        } 
+  },100);
+
   }
 }
 
