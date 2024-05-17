@@ -47,18 +47,20 @@ class Game {
       this.enemy.die();
     }
   }
-
   play() {
+    this.check();
+        this.regenerateTrack();
+        this.view.render(this.track,this.track1);
+      }
+  flyBoom() {
     play.play("./src/sounds/mem.mp3");
     setInterval(() => {
-
       if (this.enemy.skin === '💀' ){
         this.boomerang.moveLeft();
         this.check();
         this.regenerateTrack();
         this.view.render(this.track,this.track1);
         console.log('Enemy is dead!');
-        
         } 
         else {
           this.boomerang.moveRight();
@@ -68,9 +70,10 @@ class Game {
       }
         if (this.boomerang.position  === this.hero.position +1) {
           console.log('YOU WINNER! CONGRATULATION!!')
+          play.play("./src/sounds/era.mp3");
           process.exit();
         } 
-  },100);
+  },150);
 
   }
 }

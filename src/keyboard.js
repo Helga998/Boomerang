@@ -17,6 +17,7 @@ function runInteractiveConsole(game) {
     a: () => game.hero.moveLeft(),
     d: () => game.hero.moveRight(),
     g: () => game.play(),
+    h: () => game.flyBoom()
   };
   keypress(process.stdin);
   process.stdin.on('keypress', (ch, key) => {
