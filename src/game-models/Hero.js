@@ -1,8 +1,8 @@
 // Наш герой.
 
 class Hero {
-  constructor({ args = {} }) {
-    this.skin = "🤠"; // можете использовать любые emoji '💃'
+  constructor(args = {}) {
+    this.skin = '🤠'; // можете использовать любые emoji '💃'
     this.position = args.position || 0;
   }
 
