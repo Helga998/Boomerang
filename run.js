@@ -4,8 +4,9 @@ const Game = require('./src/Game');
 
 // Инициализация игры с настройками.
 const game = new Game({
-  trackLength: 30,
+  trackLength: 50,
 });
+
 
 // Запуск игры.
 game.play();
