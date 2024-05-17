@@ -9,15 +9,11 @@ class Boomerang {
   }
 
   fly() {
-    
-
     this.moveRight();
     this.moveLeft();
   }
 
   moveLeft() {
-   
-
     // Идём влево.
     this.position -= 1;
   }

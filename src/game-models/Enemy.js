@@ -20,7 +20,7 @@ class Enemy {
 
   die() {
     this.skin = "💀";
-    play.play('./src/sounds/kill.mp3');
+    play.play('./src/sounds/kill1.mp3');
     console.log("Enemy is dead!");
 
   }
