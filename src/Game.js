@@ -6,6 +6,7 @@ const Hero = require('./game-models/Hero');
 const Enemy = require('./game-models/Enemy');
 const Boomerang = require('./game-models/Boomerang');
 const View = require('./View');
+const runInteractiveConsole = require('./keyboard');
 
 // Основной класс игры.
 // Тут будут все настройки, проверки, запуск.
@@ -18,6 +19,7 @@ class Game {
     this.enemy = new Enemy({ position: this.trackLength - 1 });
     this.view = new View();
     this.track = [];
+    this.track1 = [];
     this.regenerateTrack();
   }
 
@@ -28,33 +30,38 @@ class Game {
     this.track[this.hero.position] = this.hero.skin;
     this.track[this.enemy.position] = this.enemy.skin;
     this.track[this.boomerang.position] = this.boomerang.skin;
+    this.track1 = (new Array(this.trackLength)).fill(' ');
+    // this.track1[this.hero.position] = this.hero.skin;
+    // this.track1[this.enemy.position] = this.enemy.skin;
+    // this.track1[this.boomerang.position] = this.boomerang.skin;
   }
 
   check() {
     if (this.hero.position === this.enemy.position) {
       this.hero.die();
     }
-    if (this.boomerang.position === this.enemy.position) {
+    if (this.boomerang.position === this.enemy.position - 1) {
       this.enemy.die();
     }
   }
 
   play() {
     setInterval(() => {
-      if (this.enemy.skin === '💀'){
+      if (this.enemy.skin === '💀' ){
+        this.boomerang.moveLeft();
         this.check();
         this.regenerateTrack();
-        this.view.render(this.track);
-        this.boomerang.moveLeft();
+        this.view.render(this.track,this.track1);
         console.log('Enemy is dead!');
+        
         } 
         else {
+          this.boomerang.moveRight();
           this.check();
           this.regenerateTrack();
-          this.view.render(this.track);
-          this.boomerang.moveRight();
+          this.view.render(this.track,this.track1);
       }
-        if (this.boomerang.position === 0) {
+        if (this.boomerang.position  === this.hero.position +1) {
           console.log('YOU WINNER! CONGRATULATION!!')
           process.exit();
         } 
